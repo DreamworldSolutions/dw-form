@@ -53,7 +53,7 @@ export class DwForm extends LitElement {
   connectedCallback() {
     super.connectedCallback();
     this.addEventListener('register-dw-form-element', this._registerEventHandler);
-    this.addEventListener('unregister-dw-form-element', this._unregisterEventHandler);
+    this._listenUnregisterEvent();
   }
 
   /**
@@ -120,6 +120,19 @@ export class DwForm extends LitElement {
     });
 
     return json;
+  }
+
+  /**
+   * Binds `unregister-dw-form-element` event listeners
+   * Here, binding listener on light dom as event is not propagating to parent when
+   * it's triggers from light dom's `disconnectedCallback`
+   */
+  _listenUnregisterEvent() { 
+    let elements = this.querySelectorAll('*');
+
+    elements.forEach((el) => {
+      el.addEventListener('unregister-dw-form-element', this._unregisterEventHandler.bind(this));
+    });
   }
 
   /**
