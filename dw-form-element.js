@@ -10,14 +10,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 export const DwFormElement = (baseElement) => class extends baseElement {
 
   /**
-    * Called every time the element is inserted into the DOM. Useful for 
-    * running setup code, such as fetching resources or rendering.
-    * Generally, you should try to delay work until this time.
+    * Called every time the element is inserted into the DOM.
+    * Triggers `register-dw-form-element` event and stop that event from coming from child nodes.
     */
   connectedCallback() {
     super.connectedCallback && super.connectedCallback();
     
-    //Setting timeout because it's called before parent's "connectedCallback".
+    //Setting timeout because it's called before parent's `connectedCallback`.
     setTimeout(() => {
       this._triggerFormElementRegisterEvent();
       this._stopInnerElementRegisterEvent();
@@ -25,8 +24,7 @@ export const DwFormElement = (baseElement) => class extends baseElement {
   }
     
   /**
-    * Called every time the element is removed from the DOM. Useful for 
-    * running clean up code (removing event listeners, etc.).
+    * Called every time the element is removed from the DOM.
     * Triggers `unregister-dw-form-element` event
     */
   disconnectedCallback() {

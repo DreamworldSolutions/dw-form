@@ -49,6 +49,7 @@ export class DwForm extends LitElement {
 
   /**
     * Called every time the element is inserted into the DOM. 
+    * Listens `register-dw-form-element` and `unregister-dw-form-element` event
     */
   connectedCallback() {
     super.connectedCallback();
@@ -58,6 +59,7 @@ export class DwForm extends LitElement {
 
   /**
     * Called every time the element is removed from the DOM.
+    * Removes event listeners for `register-dw-form-element` and `unregister-dw-form-element`
     */
   disconnectedCallback() {
     super.disconnectedCallback();
@@ -93,8 +95,7 @@ export class DwForm extends LitElement {
 
   /**
    * Returns a json object containing name/value pairs for all the registered
-   * components. If there are elements
-   * with duplicate names, then their values will get aggregated into an
+   * components. If there are elements with duplicate names, then their values will get aggregated into an
    * array of values.
    *
    * @return {!Object}
