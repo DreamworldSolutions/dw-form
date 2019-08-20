@@ -42,6 +42,15 @@ class DwFormDemo extends DwFormElement(LitElement) {
         h4{
           margin-bottom: 8px;
         }
+
+        .horizontal-layout{
+          display: flex;
+          flex-direction: row;
+        }
+
+        .horizontal-layout dw-input{
+          margin-right: 24px;
+        }
       `
     ];
   }
@@ -56,14 +65,16 @@ class DwFormDemo extends DwFormElement(LitElement) {
   render() {
     return html`
       <dw-form>
-        <dw-input class="row" name="firstName" label="First name" required></dw-input>
-        <dw-input class="row" name="lastName" label="Last name" required></dw-input>
-        <dw-input class="row" name="schoolName" label="School name"></dw-input>
+        <section class="horizontal-layout">
+          <dw-input class="row" name="firstName" label="First name" required></dw-input>
+          <dw-input class="row" name="lastName" label="Last name"></dw-input>
+        </section>
         <h4>Fruit</h4>
         <dw-checkbox value="grapes" class="row" name="fruit" label="Grapes"></dw-checkbox>
         <dw-checkbox value="apple" class="row" name="fruit" label="Apple"></dw-checkbox>
         <dw-checkbox value="banana" class="row" name="fruit" label="Banana"></dw-checkbox>
-        <dw-checkbox class="row agree" name="agree" label="Are you agree?"></dw-checkbox>
+
+        <dw-checkbox alignEnd class="row agree" name="agree" label="Are you agree?"></dw-checkbox>
       </dw-form>
 
       <section>

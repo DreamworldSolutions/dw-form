@@ -21,8 +21,11 @@
   },
   "homepage": "https://github.com/DreamworldSolutions/dw-form#README",
   "dependencies": {
-    "@dw/dw-checkbox": "^1.0.0-SNAPSHOT",
-    "@dw/dw-input": "^1.0.0-SNAPSHOT",
+    "@material/mwc-formfield": "^0.6.0",
     "lit-element": "^2.0.1"
+  },
+  "devDependencies": {
+    "@dw/dw-checkbox": "^1.0.0-SNAPSHOT",
+    "@dw/dw-input": "^1.0.0-SNAPSHOT"
   }
 }
