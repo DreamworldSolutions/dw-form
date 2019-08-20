@@ -1,8 +1,8 @@
 {
-  "name": "@dw/dw-form",
-  "version": "1.0.0-SNAPSHOT",
+  "name": "@dreamworld/dw-form",
+  "version": "0.1.0",
   "description": "",
-  "main": "index.js",
+  "main": "dw-form.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -25,7 +25,7 @@
     "lit-element": "^2.0.1"
   },
   "devDependencies": {
-    "@dw/dw-checkbox": "^1.0.0-SNAPSHOT",
-    "@dw/dw-input": "^1.0.0-SNAPSHOT"
+    "@dreamworld/dw-checkbox": "1.0.2",
+    "@dreamworld/dw-input": "1.0.0"
   }
 }
