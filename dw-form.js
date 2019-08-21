@@ -15,7 +15,7 @@ export class DwForm extends LitElement {
     return [
       css`
         :host {
-          display: inline-block;
+          display: block;
           outline:none;
         }
 
@@ -24,16 +24,6 @@ export class DwForm extends LitElement {
         }
       `
     ];
-  }
-
-  static get properties() {
-    return {
-
-      /* List of registered elements */
-      _customElements: {
-        type: Array
-      }
-    }
   }
 
   render() {
@@ -45,6 +35,7 @@ export class DwForm extends LitElement {
   constructor() { 
     super();
     this._customElements = [];
+    this._onUnregister = this._onUnregister.bind(this);
   }
 
   /**
@@ -53,8 +44,7 @@ export class DwForm extends LitElement {
     */
   connectedCallback() {
     super.connectedCallback();
-    this.addEventListener('register-dw-form-element', this._registerEventHandler);
-    this._listenUnregisterEvent();
+    this.addEventListener('register-dw-form-element', this._onRegister);
   }
 
   /**
@@ -63,9 +53,11 @@ export class DwForm extends LitElement {
     */
   disconnectedCallback() {
     super.disconnectedCallback();
+    this.removeEventListener('register-dw-form-element', this._onRegister);
+    this._customElements.forEach((el) => {
+      el.removeEventListener('unregister-dw-form-element', this._onUnregister);
+    });
     this._customElements = [];
-    this.removeEventListener('register-dw-form-element', this._registerEventHandler);
-    this.removeEventListener('unregister-dw-form-element', this._unregisterEventHandler);
   }
 
   /**
@@ -132,32 +124,28 @@ export class DwForm extends LitElement {
   }
 
   /**
+   * @param {HTMLElement} - registered element
    * Binds `unregister-dw-form-element` event listeners
-   * Here, binding listener on light dom as event is not propagating to parent when
-   * it's triggers from light dom's `disconnectedCallback`
    */
-  _listenUnregisterEvent() { 
-    let elements = this.querySelectorAll('*');
-
-    elements.forEach((el) => {
-      el.addEventListener('unregister-dw-form-element', this._unregisterEventHandler.bind(this));
-    });
+  _listenUnregisterEvent(el) { 
+    el.addEventListener('unregister-dw-form-element', this._onUnregister);
   }
 
   /**
    * @param {Event} e 
    * Adds element in to the customElement's list
    */
-  _registerEventHandler(e) { 
-    this._customElements.push(e.detail);
+  _onRegister(e) { 
+    this._customElements.push(e.composedPath()[0]);
+    this._listenUnregisterEvent(e.composedPath()[0]);
   }
 
   /**
    * @param {Event} e 
    * Removes element from the customElement's list
    */
-  _unregisterEventHandler(e) { 
-    let index = this._customElements.indexOf(e.detail);
+  _onUnregister(e) { 
+    let index = this._customElements.indexOf(e.composedPath()[0]);
 
     if (index > -1) { 
       this._customElements.splice(index, 1);

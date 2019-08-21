@@ -66,6 +66,8 @@ create composite form elements. Only most souter form element is registered with
   }
 ```
 
+** NOTE: Do not forget to call `super.connectedCallback()` and `super.disconnectedCallback()` in your element **
+
 # dw-form-field
 
 It's a wrapper of `mwc-formfield` which aligns form-field with it's label. 

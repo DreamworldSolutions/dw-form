@@ -31,7 +31,6 @@ export const DwFormElement = (baseElement) => class extends baseElement {
     super.disconnectedCallback && super.disconnectedCallback();
 
     let event = new CustomEvent('unregister-dw-form-element', {
-      detail: this,
       bubbles: true,
       composed: true
     });
@@ -45,7 +44,7 @@ export const DwFormElement = (baseElement) => class extends baseElement {
    */
   _stopInnerElementRegisterEvent() { 
     this.addEventListener('register-dw-form-element', (e) => { 
-      if (e.path[0] !== this) { 
+      if (e.composedPath()[0] !== this) { 
         e.stopPropagation();
         return;
       }
@@ -57,7 +56,6 @@ export const DwFormElement = (baseElement) => class extends baseElement {
    */
   _triggerFormElementRegisterEvent() { 
     let event = new CustomEvent('register-dw-form-element', { 
-      detail: this,
       bubbles: true, 
       composed: true
     });
