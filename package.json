@@ -27,5 +27,8 @@
   "devDependencies": {
     "@dreamworld/dw-checkbox": "1.0.2",
     "@dreamworld/dw-input": "0.1.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
