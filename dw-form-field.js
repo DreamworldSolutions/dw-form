@@ -17,11 +17,6 @@ export class DwFormField extends Formfield {
       Formfield.styles,
       css`
         :host {
-          --mdc-theme-primary: var(--primary-color);
-          --mdc-theme-secondary: var(--accent-color);
-          --mdc-theme-on-primary: var(--primary-text-color);
-          --mdc-theme-on-secondary: var(--secondary-text-color);
-          --mdc-theme-text-primary-on-background: var(--primary-text-color);
           display: block;
         }
 
@@ -30,7 +25,7 @@ export class DwFormField extends Formfield {
         }
 
         :host([disabled]) .mdc-form-field {
-          color: var(--disabled-text-color, rgba(0,0,0,0.38));
+          color: var(--mdc-theme-disabled-text-color, rgba(0,0,0,0.38));
         }
 
         .mdc-form-field {
