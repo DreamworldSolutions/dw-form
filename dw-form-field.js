@@ -18,6 +18,7 @@ export class DwFormField extends Formfield {
       css`
         :host {
           display: block;
+          --mdc-theme-text-primary-on-background: var(--mdc-theme-text-primary);
         }
 
         :host([disabled]) {

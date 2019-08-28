@@ -23,7 +23,7 @@ class DwFormFieldDemo extends LitElement {
 
         .custom-theme{
           --mdc-theme-secondary: blue;
-          --mdc-theme-text-primary-on-background: blue;
+          --mdc-theme-text-primary: blue;
           font-size: 20px;
         }
       `
