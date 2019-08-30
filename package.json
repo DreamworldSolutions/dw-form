@@ -1,6 +1,6 @@
 {
   "name": "@dreamworld/dw-form",
-  "version": "0.1.0",
+  "version": "0.0.0-development",
   "description": "",
   "main": "dw-form.js",
   "scripts": {
@@ -25,6 +25,7 @@
     "lit-element": "^2.0.1"
   },
   "devDependencies": {
+    "semantic-release": "beta",
     "@dreamworld/dw-checkbox": "1.0.2",
     "@dreamworld/dw-input": "0.1.0"
   },
