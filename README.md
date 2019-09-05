@@ -40,13 +40,13 @@ A Mixin used to create custom form element.
 ## Installation
 
 ```html
-  npm install --save @dw/dw-form
+  npm install --save @dreamworld/dw-form
 ```
 
 ## Usage
 
 ```html
-  @import `@dw/dw-form/dw-form-element`;
+  @import `@dreamworld/dw-form/dw-form-element`;
 ```
 
 ## How it works?
@@ -78,13 +78,13 @@ It's used to show label for checkbox & radio buttons. Used by `dw-checkbox` and 
 
 ## Installation
 ```html
-  npm install --save @dw/dw-form-field
+  npm install --save @dreamworld/dw-form-field
 ```
 
 ## Usage
 
 ```js
-  @import '@dw/dw-form-field'
+  @import '@dreamworld/dw-form-field'
 ```
 
 
