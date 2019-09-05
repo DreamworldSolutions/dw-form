@@ -25,9 +25,7 @@
     "lit-element": "^2.0.1"
   },
   "devDependencies": {
-    "semantic-release": "beta",
-    "@dreamworld/dw-checkbox": "1.0.2",
-    "@dreamworld/dw-input": "0.1.0"
+    "semantic-release": "beta"
   },
   "publishConfig": {
     "access": "public"
