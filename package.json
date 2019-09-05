@@ -1,0 +1,35 @@
+{
+  "name": "@dreamworld/dw-form",
+  "version": "0.0.0-development",
+  "description": "",
+  "main": "dw-form.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/DreamworldSolutions/dw-form.git"
+  },
+  "keywords": [
+    "lit",
+    "form"
+  ],
+  "author": "Ruchita kheni",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DreamworldSolutions/dw-form/issues"
+  },
+  "homepage": "https://github.com/DreamworldSolutions/dw-form#README",
+  "dependencies": {
+    "@material/mwc-formfield": "^0.6.0",
+    "lit-element": "^2.0.1"
+  },
+  "devDependencies": {
+    "semantic-release": "beta",
+    "@dreamworld/dw-checkbox": "1.0.2",
+    "@dreamworld/dw-input": "0.1.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
