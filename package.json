@@ -26,7 +26,8 @@
   },
   "devDependencies": {
     "@dreamworld/dw-checkbox": "^1.0.3",
-    "@dreamworld/dw-input": "^1.0.0",
+    "@dreamworld/dw-input": "^1.5.0",
+    "@dreamworld/flex-layout": "^1.1.0",
     "semantic-release": "16.0.0-beta.23"
   },
   "publishConfig": {
