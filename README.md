@@ -124,3 +124,34 @@ dw-form-field {
   font-size: 18px;
 }
 ```
+
+# dw-composite-form-element
+
+- It's a custom form element. 
+- Set all element in light dom. Also you can extend this element.
+  - set name of all light/local dom element.
+- It's value is type of object.
+  - key = name of the child element.
+  - value = value of the child element.
+- It's call validate method of it's child element.
+- Fire `value-changed` event.
+
+## Installation
+```html
+  npm install --save @dreamworld/dw-form
+```
+
+## Usage
+
+```js
+  @import '@dreamworld/dw-form/dw-composite-form-element'
+```
+
+```html
+<dw-composite-form-element>
+  <dw-input></dw-input>
+</dw-composite-form-element>
+```
+
+## Properties
+- value(Object)
