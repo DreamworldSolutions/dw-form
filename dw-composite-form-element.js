@@ -49,8 +49,8 @@ export class DwCompositeFormElement extends DwFormElement(LitElement) {
   connectedCallback() {
     super.connectedCallback();
 
-    this.addEventListener('register-dw-form-element', (e) => {
-      let element = e.target;
+     this.addEventListener('register-dw-form-element', (e) => {
+      let element = e.composedPath()[0];
 
       if (element === this) {
         return;
@@ -99,7 +99,7 @@ export class DwCompositeFormElement extends DwFormElement(LitElement) {
   
         element.value = this.value[name];
       });
-    }, 5);
+    }, 50);
   }
 
   /**
