@@ -43,6 +43,7 @@ export class DwCompositeFormElement extends DwFormElement(LitElement) {
     super();
     this._elements = [];
     this.value = {};
+    this._debounceFn = this.debounce(this._dispatchValueChangeEvent, 100);
   }
 
   connectedCallback() {
@@ -67,8 +68,8 @@ export class DwCompositeFormElement extends DwFormElement(LitElement) {
     });
   }
 
-    /**
-   * @param {Number} val 
+  /**
+   * @param {Object} val 
    */
   set value(val) {
     let oldValue = this._value;
@@ -92,11 +93,13 @@ export class DwCompositeFormElement extends DwFormElement(LitElement) {
       return;
     }
 
-    this._elements.forEach((element) => {
-      let name = element.name; 
-
-      element.value = this.value[name];
-    });
+    setTimeout(() => {
+      this._elements.forEach((element) => {
+        let name = element.name; 
+  
+        element.value = this.value[name];
+      });
+    }, 5);
   }
 
   /**
@@ -108,8 +111,32 @@ export class DwCompositeFormElement extends DwFormElement(LitElement) {
     let name = e.target.name;
 
     this.value[name] = value;
-    this.dispatchEvent(new CustomEvent('form-value-changed', { detail: { value: this.value } }));
+    this._debounceFn();
   }
+
+  /**
+   * dispatch `form-value-changed` event.
+   */
+  _dispatchValueChangeEvent(){
+    this.dispatchEvent(new CustomEvent('value-changed', { detail: { value: this.value } }));
+  }
+
+  /**
+   * 
+   * @param {Function} func 
+   * @param {Number} delay 
+   */
+  debounce(func, delay){
+    let debounceTimer;
+
+    return function() { 
+      const context = this;
+      const args = arguments;
+
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => func.apply(context, args), delay);
+    }
+  }  
 
   /**
    * It's return true if all children element validate method is true, otherwise return false.
