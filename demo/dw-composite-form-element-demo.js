@@ -31,14 +31,22 @@ export class DwCompositeFormElementDemo extends LitElement {
     ];
   }
 
+  static get properties() {
+    return {
+      _inputs: { type: Object }
+    };
+  }
+
+
   render() {
     return html`
-      <dw-composite-form-element @form-value-changed="${this._onValueChanged}">
+      <dw-composite-form-element @value-changed="${this._onValueChanged}" .value="${this._inputs}">
         <section class="layout horizontal">
           <dw-input
             class="seprator"
             label="Input text"
             required
+            errorMessage="required"
             placeholder="Enter text"
             name="input1">
           </dw-input>
@@ -58,8 +66,18 @@ export class DwCompositeFormElementDemo extends LitElement {
     `
   }
 
-  _onValueChanged(e){
+  _onValueChanged(e) {
     console.log(e.detail.value);
+  }
+
+  constructor() {
+    super();
+
+    this._inputs = {
+      'input1': 'input 1',
+      'input2': 'input 2',
+      'input3': 'input 2'
+    }
   }
 }
 
