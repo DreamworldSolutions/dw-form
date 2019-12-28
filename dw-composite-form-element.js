@@ -116,7 +116,7 @@ export class DwCompositeFormElement extends DwFormElement(LitElement) {
     let name = e.target.name;
 
     this.value[name] = value;
-    this._debounceFn();
+    this._debounceFn(); 
   }
 
    /**
