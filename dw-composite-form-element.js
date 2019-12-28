@@ -44,6 +44,8 @@ export class DwCompositeFormElement extends DwFormElement(LitElement) {
     this._elements = [];
     this.value = {};
     this._debounceFn = this.debounce(this._dispatchValueChangeEvent, 100);
+    this._onElementValueChange = this._onElementValueChange.bind(this);
+    this._onElementCheckedChange = this._onElementCheckedChange.bind(this);
   }
 
   connectedCallback() {
@@ -56,12 +58,15 @@ export class DwCompositeFormElement extends DwFormElement(LitElement) {
         return;
       }
 
-      element.addEventListener('value-changed', this._onValueChanged.bind(this));
+      element.addEventListener('value-changed', this._onElementValueChange);
+      element.addEventListener('checked-changed', this._onElementCheckedChange);
       element.addEventListener('unregister-dw-form-element', () => {
         if (this._elements.indexOf(element) != -1) {
           this._elements.splice(element.index, 1);
         }
-        element.removeEventListener('value-changed', this._onValueChanged);
+
+        element.removeEventListener('value-changed', this._onElementValueChange);
+        element.removeEventListener('checked-changed', this._onElementCheckedChange);
       });
 
       this._elements.push(element);
@@ -106,8 +111,20 @@ export class DwCompositeFormElement extends DwFormElement(LitElement) {
    * fire `form-value-changed` event and set `value` property.
    * @param {Object} e - Event data. 
    */
-  _onValueChanged(e) {
+  _onElementValueChange(e) {
     let value = e.target.value;
+    let name = e.target.name;
+
+    this.value[name] = value;
+    this._debounceFn();
+  }
+
+   /**
+   * fire `form-value-changed` event and set `value` property.
+   * @param {Object} e - Event data. 
+   */
+  _onElementCheckedChange(e){
+    let value = e.target.checked;
     let name = e.target.name;
 
     this.value[name] = value;
@@ -146,6 +163,10 @@ export class DwCompositeFormElement extends DwFormElement(LitElement) {
     let bValidate = true;
 
     this._elements.forEach((element) => {
+      if (!element.validate || typeof element.validate !== 'function') {
+        return;
+      }
+
       if (!element.validate()) {
         bValidate = false;
       }
