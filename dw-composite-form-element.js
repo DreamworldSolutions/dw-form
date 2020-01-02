@@ -9,7 +9,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 */
 
 import { css, LitElement, html } from 'lit-element';
-import {debounce} from 'lodash/debounce';
+import { debounce } from 'lodash/debounce';
 
 // These are dw element needed by this element.
 import { DwFormElement } from './dw-form-element';
@@ -59,7 +59,7 @@ export class DwCompositeFormElement extends DwFormElement(LitElement) {
   disconnectedCallback() {
     super.disconnectedCallback && super.disconnectedCallback();
     this.removeEventListener('register-dw-form-element', this._onRegisterDwFormElement);
-    this._elements.forEach((element)=>{
+    this._elements.forEach((element) => {
       this._unbindValueChangedEvents(element);
     });
     this._elements = [];
@@ -69,7 +69,7 @@ export class DwCompositeFormElement extends DwFormElement(LitElement) {
    * @param {Object} val 
    */
   set value(val) {
-    if(val === this._value) {
+    if (val === this._value) {
       return;
     }
     let oldValue = this._value;
@@ -86,16 +86,16 @@ export class DwCompositeFormElement extends DwFormElement(LitElement) {
   }
 
   _onRegisterDwFormElement(e) {
-      let element = e.composedPath()[0];
+    let element = e.composedPath()[0];
 
-      if (element === this) {
-        return;
-      }
+    if (element === this) {
+      return;
+    }
 
-      element.addEventListener('value-changed', this._onElementValueChange);
-      element.addEventListener('checked-changed', this._onElementCheckedChange);
-      element.addEventListener('unregister-dw-form-element', this._onUnregisterDwFormElement);
-      this._elements.push(element);
+    element.addEventListener('value-changed', this._onElementValueChange);
+    element.addEventListener('checked-changed', this._onElementCheckedChange);
+    element.addEventListener('unregister-dw-form-element', this._onUnregisterDwFormElement);
+    this._elements.push(element);
   }
 
   _onUnregisterDwFormElement(e) {
@@ -104,7 +104,7 @@ export class DwCompositeFormElement extends DwFormElement(LitElement) {
       this._elements.splice(element.index, 1);
     }
     this._unbindValueChangedEvents(element);
-    
+
   }
 
   _unbindValueChangedEvents(element) {
@@ -115,15 +115,14 @@ export class DwCompositeFormElement extends DwFormElement(LitElement) {
   /**
    * set child element value.
    */
-  _setChildElementValue(){
-    if(!this.value || !Object.keys(this.value).length){
+  _setChildElementValue() {
+    if (!this.value || !Object.keys(this.value).length) {
       return;
     }
 
     setTimeout(() => {
       this._elements.forEach((element) => {
-        let name = element.name; 
-  
+        let name = element.name;
         element.value = this.value[name];
       });
     }, 50);
@@ -138,14 +137,14 @@ export class DwCompositeFormElement extends DwFormElement(LitElement) {
     let name = e.target.name;
 
     this.value[name] = value;
-    this._dispatchValueChangeEvent(); 
+    this._dispatchValueChangeEvent();
   }
 
-   /**
-   * fire `form-value-changed` event and set `value` property.
-   * @param {Object} e - Event data. 
-   */
-  _onElementCheckedChange(e){
+  /**
+  * fire `form-value-changed` event and set `value` property.
+  * @param {Object} e - Event data. 
+  */
+  _onElementCheckedChange(e) {
     let value = e.target.checked;
     let name = e.target.name;
 
@@ -156,7 +155,7 @@ export class DwCompositeFormElement extends DwFormElement(LitElement) {
   /**
    * dispatch `form-value-changed` event.
    */
-  _dispatchValueChangeEvent(){
+  _dispatchValueChangeEvent() {
     this.dispatchEvent(new CustomEvent('value-changed', { detail: { value: this.value } }));
   }
 
@@ -164,7 +163,7 @@ export class DwCompositeFormElement extends DwFormElement(LitElement) {
    * It's return true if all children element validate method is true, otherwise return false.
    * @return {Boolean}
    */
-  validate(){
+  validate() {
     let bValidate = true;
 
     this._elements.forEach((element) => {
