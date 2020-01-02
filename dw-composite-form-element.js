@@ -9,6 +9,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 */
 
 import { css, LitElement, html } from 'lit-element';
+import {debounce} from 'lodash/debounce';
 
 // These are dw element needed by this element.
 import { DwFormElement } from './dw-form-element';
@@ -43,40 +44,34 @@ export class DwCompositeFormElement extends DwFormElement(LitElement) {
     super();
     this._elements = [];
     this.value = {};
-    this._debounceFn = this.debounce(this._dispatchValueChangeEvent, 100);
+    this._dispatchValueChangeEvent = debounce(this._dispatchValueChangeEvent, 100);
     this._onElementValueChange = this._onElementValueChange.bind(this);
     this._onElementCheckedChange = this._onElementCheckedChange.bind(this);
+    this._onRegisterDwFormElement = this._onRegisterDwFormElement.bind(this);
+    this._onUnregisterDwFormElement = this._onUnregisterDwFormElement.bind(this);
   }
 
   connectedCallback() {
     super.connectedCallback();
+    this.addEventListener('register-dw-form-element', this._onRegisterDwFormElement);
+  }
 
-     this.addEventListener('register-dw-form-element', (e) => {
-      let element = e.composedPath()[0];
-
-      if (element === this) {
-        return;
-      }
-
-      element.addEventListener('value-changed', this._onElementValueChange);
-      element.addEventListener('checked-changed', this._onElementCheckedChange);
-      element.addEventListener('unregister-dw-form-element', () => {
-        if (this._elements.indexOf(element) != -1) {
-          this._elements.splice(element.index, 1);
-        }
-
-        element.removeEventListener('value-changed', this._onElementValueChange);
-        element.removeEventListener('checked-changed', this._onElementCheckedChange);
-      });
-
-      this._elements.push(element);
+  disconnectedCallback() {
+    super.disconnectedCallback && super.disconnectedCallback();
+    this.removeEventListener('register-dw-form-element', this._onRegisterDwFormElement);
+    this._elements.forEach((element)=>{
+      this._unbindValueChangedEvents(element);
     });
+    this._elements = [];
   }
 
   /**
    * @param {Object} val 
    */
   set value(val) {
+    if(val === this._value) {
+      return;
+    }
     let oldValue = this._value;
     this._value = val;
     this._setChildElementValue();
@@ -88,6 +83,33 @@ export class DwCompositeFormElement extends DwFormElement(LitElement) {
    */
   get value() {
     return this._value;
+  }
+
+  _onRegisterDwFormElement(e) {
+      let element = e.composedPath()[0];
+
+      if (element === this) {
+        return;
+      }
+
+      element.addEventListener('value-changed', this._onElementValueChange);
+      element.addEventListener('checked-changed', this._onElementCheckedChange);
+      element.addEventListener('unregister-dw-form-element', this._onUnregisterDwFormElement);
+      this._elements.push(element);
+  }
+
+  _onUnregisterDwFormElement(e) {
+    let element = e.target;
+    if (this._elements.indexOf(element) != -1) {
+      this._elements.splice(element.index, 1);
+    }
+    this._unbindValueChangedEvents(element);
+    
+  }
+
+  _unbindValueChangedEvents(element) {
+    element.removeEventListener('value-changed', this._onElementValueChange);
+    element.removeEventListener('checked-changed', this._onElementCheckedChange);
   }
 
   /**
@@ -116,7 +138,7 @@ export class DwCompositeFormElement extends DwFormElement(LitElement) {
     let name = e.target.name;
 
     this.value[name] = value;
-    this._debounceFn(); 
+    this._dispatchValueChangeEvent(); 
   }
 
    /**
@@ -128,7 +150,7 @@ export class DwCompositeFormElement extends DwFormElement(LitElement) {
     let name = e.target.name;
 
     this.value[name] = value;
-    this._debounceFn();
+    this._dispatchValueChangeEvent();
   }
 
   /**
@@ -137,23 +159,6 @@ export class DwCompositeFormElement extends DwFormElement(LitElement) {
   _dispatchValueChangeEvent(){
     this.dispatchEvent(new CustomEvent('value-changed', { detail: { value: this.value } }));
   }
-
-  /**
-   * 
-   * @param {Function} func 
-   * @param {Number} delay 
-   */
-  debounce(func, delay){
-    let debounceTimer;
-
-    return function() { 
-      const context = this;
-      const args = arguments;
-
-      clearTimeout(debounceTimer);
-      debounceTimer = setTimeout(() => func.apply(context, args), delay);
-    }
-  }  
 
   /**
    * It's return true if all children element validate method is true, otherwise return false.
