@@ -9,7 +9,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 */
 
 import { css, LitElement, html } from 'lit-element';
-import { debounce } from 'lodash/debounce';
+
+// These are lodash element needed by this element.
+import debounce  from 'lodash-es/debounce';
 
 // These are dw element needed by this element.
 import { DwFormElement } from './dw-form-element';
