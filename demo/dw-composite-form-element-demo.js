@@ -46,6 +46,7 @@ export class DwCompositeFormElementDemo extends LitElement {
             class="seprator"
             label="Input text"
             required
+            .index="${0}"
             errorMessage="required"
             placeholder="Enter text"
             name="input1">
@@ -53,11 +54,13 @@ export class DwCompositeFormElementDemo extends LitElement {
           <dw-input
            class="seprator"
             label="Input text"
+            .index="${1}"
             placeholder="Enter text"
             name="input2">
           </dw-input>
           <dw-input
             label="Input text"
+            .index="${2}"
             placeholder="Enter text"
             name="input3">
           </dw-input>
