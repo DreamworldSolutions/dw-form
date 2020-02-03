@@ -98,6 +98,12 @@ export class DwCompositeFormElement extends DwFormElement(LitElement) {
     element.addEventListener('checked-changed', this._onElementCheckedChange);
     element.addEventListener('unregister-dw-form-element', this._onUnregisterDwFormElement);
     this._elements.push(element);
+
+    /**
+     * call this function here because
+     * This element value is set first after child element `register-dw-form-element` event is dispatched.
+     * So sometimes child element value is not shown as prefilled.
+     */
     this._setChildElementValue(); 
   }
 
