@@ -98,6 +98,7 @@ export class DwCompositeFormElement extends DwFormElement(LitElement) {
     element.addEventListener('checked-changed', this._onElementCheckedChange);
     element.addEventListener('unregister-dw-form-element', this._onUnregisterDwFormElement);
     this._elements.push(element);
+    this._setChildElementValue();
   }
 
   _onUnregisterDwFormElement(e) {
@@ -122,12 +123,10 @@ export class DwCompositeFormElement extends DwFormElement(LitElement) {
       return;
     }
 
-    setTimeout(() => {
-      this._elements.forEach((element) => {
-        let name = element.name;
-        element.value = this.value[name];
-      });
-    }, 50);
+    this._elements.forEach((element) => {
+      let name = element.name;
+      element.value = this.value[name];
+    });
   }
 
   /**
