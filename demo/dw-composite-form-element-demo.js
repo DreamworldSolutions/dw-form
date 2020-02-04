@@ -9,7 +9,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 */
 
 import { css, LitElement, html } from 'lit-element';
-import '../dw-composite-form-element';
+import '../dw-composite-form-element'; 
 import '@dreamworld/dw-input';
 import { flexLayout } from '@dreamworld/flex-layout/flex-layout';
 
