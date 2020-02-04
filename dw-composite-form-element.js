@@ -32,7 +32,9 @@ export class DwCompositeFormElement extends DwFormElement(LitElement) {
       /**
        * value of element
        */
-      value: { type: Object }
+      value: { type: Object },
+
+      inputValue: { type: Object }
     }
   }
 
@@ -46,6 +48,7 @@ export class DwCompositeFormElement extends DwFormElement(LitElement) {
     super();
     this._elements = [];
     this.value = {};
+    this.inputValue = {};
     this._dispatchValueChangeEvent = debounce(this._dispatchValueChangeEvent, 100);
     this._onElementValueChange = this._onElementValueChange.bind(this);
     this._onElementCheckedChange = this._onElementCheckedChange.bind(this);
@@ -70,21 +73,23 @@ export class DwCompositeFormElement extends DwFormElement(LitElement) {
   /**
    * @param {Object} val 
    */
-  set value(val) {
-    if (val === this._value) {
+  set inputValue(val) {
+    if (val === this._inputValue) {
       return;
     }
-    let oldValue = this._value;
-    this._value = val;
+
+    let oldValue = this._inputValue;
+    this._inputValue = val;
+    this.value = { ...val };
     this._setChildElementValue();
-    this.requestUpdate('value', oldValue);
+    this.requestUpdate('inputValue', oldValue);
   }
 
   /**
    * get value
    */
-  get value() {
-    return this._value;
+  get inputValue() {
+    return this._inputValue;
   }
 
   _onRegisterDwFormElement(e) {
