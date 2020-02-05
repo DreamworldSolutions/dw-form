@@ -33,7 +33,11 @@ export class DwCompositeFormElement extends DwFormElement(LitElement) {
        * value of element
        */
       value: { type: Object },
-
+      
+      /**
+       * Input Property
+       * Used to set pre-filled value of the element
+       */
       inputValue: { type: Object }
     }
   }
