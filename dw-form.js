@@ -148,6 +148,7 @@ export class DwForm extends LitElement {
     let index = this._customElements.indexOf(e.composedPath()[0]);
 
     if (index > -1) { 
+      this._customElements[index].removeEventListener('unregister-dw-form-element', this._onUnregister);
       this._customElements.splice(index, 1);
     }
   }
