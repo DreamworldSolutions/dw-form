@@ -134,10 +134,6 @@ export class DwCompositeFormElement extends DwFormElement(LitElement) {
    * set child element value.
    */
   _setChildElementValue() {
-    if (!this.value || !Object.keys(this.value).length) {
-      return;
-    }
-
     this._elements.forEach((element) => {
       let name = element.name;
       element.value = this.value[name];
