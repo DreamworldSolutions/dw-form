@@ -40,7 +40,7 @@ export class DwCompositeFormElementDemo extends LitElement {
 
   render() {
     return html`
-      <dw-composite-form-element @value-changed="${this._onValueChanged}" .inputValue="${this._inputs}">
+      <dw-composite-form-element @value-changed="${this._onValueChanged}" .value="${this._inputs}">
         <section class="layout horizontal">
           <dw-input
             class="seprator"

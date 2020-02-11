@@ -32,13 +32,7 @@ export class DwCompositeFormElement extends DwFormElement(LitElement) {
       /**
        * value of element
        */
-      value: { type: Object },
-      
-      /**
-       * Input Property
-       * Used to set pre-filled value of the element
-       */
-      inputValue: { type: Object }
+      value: { type: Object }
     }
   }
 
@@ -52,12 +46,17 @@ export class DwCompositeFormElement extends DwFormElement(LitElement) {
     super();
     this._elements = [];
     this.value = {};
-    this.inputValue = {};
     this._dispatchValueChangeEvent = debounce(this._dispatchValueChangeEvent, 100);
     this._onElementValueChange = this._onElementValueChange.bind(this);
     this._onElementCheckedChange = this._onElementCheckedChange.bind(this);
     this._onRegisterDwFormElement = this._onRegisterDwFormElement.bind(this);
     this._onUnregisterDwFormElement = this._onUnregisterDwFormElement.bind(this);
+    /**
+     * Instance property
+     * Default value is false
+     * Becomes true when value is changed internally.
+     */
+    this._changedInternally = false;
   }
 
   connectedCallback() {
@@ -72,28 +71,32 @@ export class DwCompositeFormElement extends DwFormElement(LitElement) {
       this._unbindValueChangedEvents(element);
     });
     this._elements = [];
+    this._changedInternally = null;
   }
 
   /**
    * @param {Object} val 
    */
-  set inputValue(val) {
-    if (val === this._inputValue) {
+  set value(val) {
+    if (val === this._value || this._changedInternally) {
       return;
     }
 
-    let oldValue = this._inputValue;
-    this._inputValue = val;
-    this.value = { ...val };
+    this._changedInternally = false;
+    let oldValue = this._value;
+    this._value = val;
+    
+    
     this._setChildElementValue();
-    this.requestUpdate('inputValue', oldValue);
+
+    this.requestUpdate('value', oldValue);
   }
 
   /**
    * get value
    */
-  get inputValue() {
-    return this._inputValue;
+  get value() {
+    return this._value;
   }
 
   _onRegisterDwFormElement(e) {
@@ -145,9 +148,11 @@ export class DwCompositeFormElement extends DwFormElement(LitElement) {
    * @param {Object} e - Event data. 
    */
   _onElementValueChange(e) {
+    this._changedInternally = true;
     let value = e.target.value;
     let name = e.target.name;
 
+    this.value = { ...this.value };
     this.value[name] = value;
     this._dispatchValueChangeEvent();
   }
@@ -157,9 +162,11 @@ export class DwCompositeFormElement extends DwFormElement(LitElement) {
   * @param {Object} e - Event data. 
   */
   _onElementCheckedChange(e) {
+    this._changedInternally = true;
     let value = e.target.checked;
     let name = e.target.name;
-
+    
+    this.value = { ...this.value };
     this.value[name] = value;
     this._dispatchValueChangeEvent();
   }
