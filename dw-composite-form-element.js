@@ -8,7 +8,7 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
 
-import { css, LitElement, html } from 'lit-element';
+import { css, LitElement, html } from 'lit-element'; 
 
 // These are lodash element needed by this element.
 import debounce from 'lodash-es/debounce';
