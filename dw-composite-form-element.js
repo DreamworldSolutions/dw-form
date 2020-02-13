@@ -51,12 +51,6 @@ export class DwCompositeFormElement extends DwFormElement(LitElement) {
     this._onElementCheckedChange = this._onElementCheckedChange.bind(this);
     this._onRegisterDwFormElement = this._onRegisterDwFormElement.bind(this);
     this._onUnregisterDwFormElement = this._onUnregisterDwFormElement.bind(this);
-    /**
-     * Instance property
-     * Default value is false
-     * Becomes true when value is changed internally.
-     */
-    this._changedInternally = false;
   }
 
   connectedCallback() {
@@ -71,19 +65,18 @@ export class DwCompositeFormElement extends DwFormElement(LitElement) {
       this._unbindValueChangedEvents(element);
     });
     this._elements = [];
-    this._changedInternally = null;
   }
 
   /**
    * @param {Object} val 
    */
   set value(val) {
-    if (val === this._value || this._changedInternally) {
+    if (val === this._value || this._lastUserValue === val) {
       return;
     }
 
-    this._changedInternally = false;
     let oldValue = this._value;
+    this._lastUserValue = val;
     this._value = val;
     
     
@@ -97,6 +90,16 @@ export class DwCompositeFormElement extends DwFormElement(LitElement) {
    */
   get value() {
     return this._value;
+  }
+
+  _setValue(val) { 
+    if (val === this._value) {
+      return;
+    }
+
+    let oldValue = this._value;
+    this._value = val;
+    this.requestUpdate('value', oldValue);
   }
 
   _onRegisterDwFormElement(e) {
@@ -148,12 +151,12 @@ export class DwCompositeFormElement extends DwFormElement(LitElement) {
    * @param {Object} e - Event data. 
    */
   _onElementValueChange(e) {
-    this._changedInternally = true;
     let value = e.target.value;
     let name = e.target.name;
+    let newValue = { ...this.value };
+    newValue[name] = value;
 
-    this.value = { ...this.value };
-    this.value[name] = value;
+    this._setValue(newValue);
     this._dispatchValueChangeEvent();
   }
 
@@ -162,12 +165,13 @@ export class DwCompositeFormElement extends DwFormElement(LitElement) {
   * @param {Object} e - Event data. 
   */
   _onElementCheckedChange(e) {
-    this._changedInternally = true;
     let value = e.target.checked;
     let name = e.target.name;
     
-    this.value = { ...this.value };
-    this.value[name] = value;
+    let newValue = { ...this.value };
+    newValue[name] = value;
+    
+    this._setValue(newValue);
     this._dispatchValueChangeEvent();
   }
 
