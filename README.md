@@ -124,3 +124,30 @@ dw-form-field {
   font-size: 18px;
 }
 ```
+
+# dw-composite-form-element
+- It's a custom form element. As it's name suggests, used to create a form-element which is composed of other form-elements.
+- All the elements for the composition are identified from either local-dom (When used by extending this class) or light-dom.
+- Data-type of the `value` property is `Object`. Object's key represents name of the inner form-element & value represents value of that inner form element.
+- When `validate()` of this element is called, it invokes `validate()` of all the inner form elements.
+- Fires `value-changed` event when it's value is changed. (OR in other word, `value` of any inner form element is changed).
+
+## Installation
+```html
+  npm install --save @dreamworld/dw-form
+```
+
+## Usage (Composition or light-dom)
+
+```js
+  @import '@dreamworld/dw-form/dw-composite-form-element'
+```
+
+```html
+<dw-composite-form-element>
+  <dw-input></dw-input>
+</dw-composite-form-element>
+```
+
+## Usage (Extension)
+- Create a new form element by extending the class `DwCompositeFormElement` and in the `render()` template render all the children elements.
