@@ -104,7 +104,7 @@ export class DwForm extends LitElement {
       let value = el.value;
 
       if (el.checked === true || el.checked === false) { 
-        value = el.checked ? el.value || el.checked : null;
+        value = el.value || el.checked;
       }
 
       if (value === null || value === undefined) { 
