@@ -80,8 +80,6 @@ export class DwForm extends LitElement {
 
     });
 
-    invalidElements.length && console.error('Some elements having invalid value', invalidElements);
-
     return valid;
   }
 
