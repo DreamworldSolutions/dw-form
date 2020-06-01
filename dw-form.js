@@ -66,21 +66,12 @@ export class DwForm extends LitElement {
    */
   validate() { 
     let valid = true;
-    let invalidElements = [];
 
     this._customElements.forEach(el => {
-
       if (el && el.validate) {
         valid = !!el.validate() && valid;
-
-        if (!el.validate()) { 
-          invalidElements.push(el);
-        }
       }
-
     });
-
-    invalidElements.length && console.error('Some elements having invalid value', invalidElements);
 
     return valid;
   }
