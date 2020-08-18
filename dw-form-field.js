@@ -41,6 +41,10 @@ export class DwFormField extends Formfield {
           /* for alignEnd label */
           padding-right: 0px;
         }
+
+        label{
+          min-height: var(--dw-form-field-label-min-height, auto);
+        }
       `
     ];
   }
