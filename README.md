@@ -116,11 +116,14 @@ It's used to show label for checkbox & radio buttons. Used by `dw-checkbox` and 
 
 - `--disabled-text-color` - use this to customize disabled label color
 
+- `--dw-form-field-label-min-height` - use this to set minimum height to label.
+
 #### Example css to change label style
 
 ```
 dw-form-field {
   --primary-text-color: blue;
+  --dw-form-field-label-min-height: 40px;
   font-size: 18px;
 }
 ```
