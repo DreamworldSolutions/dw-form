@@ -30,14 +30,24 @@
     "@dreamworld/dw-checkbox": "^1.0.3",
     "@dreamworld/dw-input": "^1.5.0",
     "@dreamworld/flex-layout": "^1.1.0",
-    "semantic-release": "16.0.0-beta.23"
+    "semantic-release": "17.0.8"
   },
   "publishConfig": {
     "access": "public"
   },
   "resolutions": {
-    "@semantic-release/npm": "5.2.0-beta.5",
     "lit-element": "2.3.1",
     "lit-html": "1.2.1"
+  },
+  "release": {
+    "branches": [
+      "+([0-9])?(.{+([0-9]),x}).x",
+      "master",
+      {
+        "name": "feature/*",
+        "prerelease": "${name.replace(/^feature\\//g,\"\")}",
+        "channel": "${name.replace(/^feature\\//g,\"\")}"
+      }
+    ]
   }
 }
