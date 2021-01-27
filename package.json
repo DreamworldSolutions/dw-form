@@ -30,7 +30,7 @@
     "@dreamworld/dw-checkbox": "^1.0.3",
     "@dreamworld/dw-input": "^1.5.0",
     "@dreamworld/flex-layout": "^1.1.0",
-    "semantic-release": "17.0.8"
+    "semantic-release": "17.2.3"
   },
   "publishConfig": {
     "access": "public"
