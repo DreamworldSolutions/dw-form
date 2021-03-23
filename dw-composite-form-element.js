@@ -114,7 +114,10 @@ export class DwCompositeFormElement extends DwFormElement(LitElement) {
     element.addEventListener('checked-changed', this._onElementCheckedChange);
     element.addEventListener('unregister-dw-form-element', this._onUnregisterDwFormElement);
     this._elements.push(element);
-
+    this._elements.forEach((element, index) => {
+      element.index = index;
+    });
+    
     /**
      * call this function here because
      * This element value is set first after child element `register-dw-form-element` event is dispatched.
