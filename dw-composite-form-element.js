@@ -127,12 +127,14 @@ export class DwCompositeFormElement extends DwFormElement(LitElement) {
   }
 
   _onUnregisterDwFormElement(e) {
-    let element = e.target;
-    if (this._elements.indexOf(element) != -1) {
-      this._elements.splice(element.index, 1);
-    }
-    this._unbindValueChangedEvents(element);
+    let removeEl = e.composedPath()[0];
+    let elIndex = this._elements.indexOf(removeEl); 
 
+    if (elIndex != -1) {
+      this._elements.splice(elIndex, 1);
+    }
+
+    this._unbindValueChangedEvents(removeEl);
   }
 
   _unbindValueChangedEvents(element) {
