@@ -18,10 +18,12 @@ export class DwFormField extends Formfield {
       css`
         :host {
           display: block;
+          cursor: pointer;
           --mdc-theme-text-primary-on-background: var(--mdc-theme-text-primary);
         }
 
         :host([disabled]) {
+          cursor: default;
           pointer-events: none;
         }
 
@@ -42,8 +44,13 @@ export class DwFormField extends Formfield {
           padding-right: 0px;
         }
 
+        :host([disabled]) label {
+          cursor: default;
+        }
+
         label{
           min-height: var(--dw-form-field-label-min-height, auto);
+          cursor: pointer;
         }
       `
     ];
