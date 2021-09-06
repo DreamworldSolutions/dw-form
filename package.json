@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/DreamworldSolutions/dw-form#README",
   "dependencies": {
-    "@dreamworld/pwa-helpers": "^1.7.1",
+    "@dreamworld/pwa-helpers": "^1.11.1",
     "@material/mwc-formfield": "^0.20.0",
     "lit-element": "^2.0.1",
     "lodash-es": "^4.17.15"
