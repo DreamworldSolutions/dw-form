@@ -52,6 +52,10 @@ export class DwFormField extends Formfield {
           min-height: var(--dw-form-field-label-min-height, auto);
           cursor: pointer;
         }
+
+        :host([align-top]) .mdc-label{
+          align-self: flex-start;
+        }
       `
     ];
   }
@@ -62,6 +66,11 @@ export class DwFormField extends Formfield {
        * Set to true to disabled click
        */
       disabled: { type: Boolean },
+
+      /**
+       * Aligns label at top.
+       */
+       alignTop: { type: Boolean, reflect: true, attribute: 'align-top' },
       
       /**
        *  True if label is available

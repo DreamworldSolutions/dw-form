@@ -72,9 +72,9 @@ create composite form elements. Only most souter form element is registered with
 
 It's a wrapper of `mwc-formfield` which aligns form-field with it's label. 
 It also activates a ripple effect upon interacting with the label. For more detail visit
- https://github.com/material-components/material-components-web-components/tree/master/packages/formfield.
+ https://github.com/material-components/material-web/tree/master/packages/formfield.
 
-It's used to show label for checkbox & radio buttons. Used by `dw-checkbox` and `dw-radio-button2`.
+It's used to show label for checkbox & radio buttons. Used by `dw-checkbox` and `dw-radio-button`.
 
 ## Installation
 ```html
@@ -103,11 +103,13 @@ It's used to show label for checkbox & radio buttons. Used by `dw-checkbox` and 
   - Deactivates ripple on click
 - Removes left padding from label When label is not available
 - Adds a way to change font style. By default it inherits font style from parent element
+- Provides a way to align label to top through `alignTop` property.
 
 ## Properties
 
 - label
 - alignEnd
+- alignTop
 - disabled
 
 ## Theme
