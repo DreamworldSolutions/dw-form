@@ -33,7 +33,12 @@ export class DwCompositeFormElement extends DwFormElement(LitElement) {
       /**
        * value of element
        */
-      value: { type: Object }
+      value: { type: Object },
+
+      /**
+       * Name of the element.
+       */
+      name: { type: String }
     }
   }
 
