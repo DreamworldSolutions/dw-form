@@ -59,6 +59,7 @@ export class DwFormField extends Formfield {
 
         :host([align-top]) .mdc-label{
           align-self: flex-start;
+          align-items: flex-start;
         }
       `
     ];
