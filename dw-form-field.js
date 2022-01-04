@@ -51,10 +51,15 @@ export class DwFormField extends Formfield {
         label{
           min-height: var(--dw-form-field-label-min-height, auto);
           cursor: pointer;
+          display: flex;
+          align-items: center;
+          align-self: stretch;
+          width: 100%;
         }
 
         :host([align-top]) .mdc-label{
           align-self: flex-start;
+          align-items: flex-start;
         }
       `
     ];
