@@ -8,8 +8,10 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
 
-import { css } from 'lit-element';
-import { Formfield } from '@material/mwc-formfield';
+import { css } from "lit-element";
+import { Formfield } from "@material/mwc-formfield";
+import { classMap } from "lit-html/directives/class-map";
+import { html, property, query } from "lit-element";
 
 export class DwFormField extends Formfield {
   static get styles() {
@@ -17,7 +19,7 @@ export class DwFormField extends Formfield {
       Formfield.styles,
       css`
         :host {
-          display: block;
+          display: inline-block;
           cursor: pointer;
           --mdc-theme-text-primary-on-background: var(--mdc-theme-text-primary);
         }
@@ -28,7 +30,7 @@ export class DwFormField extends Formfield {
         }
 
         :host([disabled]) .mdc-form-field {
-          color: var(--mdc-theme-disabled-text-color, rgba(0,0,0,0.38));
+          color: var(--mdc-theme-disabled-text-color, rgba(0, 0, 0, 0.38));
         }
 
         .mdc-form-field {
@@ -36,9 +38,9 @@ export class DwFormField extends Formfield {
           line-height: inherit;
           font-family: inherit;
         }
-        
+
         /* Removes label padding when label is not available */
-        :host(:not([_hasLabel])) .mdc-form-field > label{
+        :host(:not([_hasLabel])) .mdc-form-field > label {
           padding-left: 0px;
           /* for alignEnd label */
           padding-right: 0px;
@@ -48,20 +50,15 @@ export class DwFormField extends Formfield {
           cursor: default;
         }
 
-        label{
+        label {
           min-height: var(--dw-form-field-label-min-height, auto);
           cursor: pointer;
-          display: flex;
-          align-items: center;
-          align-self: stretch;
-          width: 100%;
         }
 
-        :host([align-top]) .mdc-label{
+        :host([align-top]) .mdc-label {
           align-self: flex-start;
-          align-items: flex-start;
         }
-      `
+      `,
     ];
   }
 
@@ -75,16 +72,16 @@ export class DwFormField extends Formfield {
       /**
        * Aligns label at top.
        */
-       alignTop: { type: Boolean, reflect: true, attribute: 'align-top' },
-      
+      alignTop: { type: Boolean, reflect: true, attribute: "align-top" },
+
       /**
        *  True if label is available
        */
       _hasLabel: {
         type: Boolean,
-        reflect: true
-      }
-    }
+        reflect: true,
+      },
+    };
   }
 
   constructor() {
@@ -92,17 +89,42 @@ export class DwFormField extends Formfield {
     this.disabled = false;
   }
 
+  render() {
+    const classes = {
+      "mdc-form-field--align-end": this.alignEnd,
+      "mdc-form-field--space-between": this.spaceBetween,
+      "mdc-form-field--nowrap": this.nowrap,
+    };
+    return html` <div class="mdc-form-field ${classMap(classes)}">
+      <slot></slot>
+      ${this._renderLabel()}
+    </div>`;
+  }
+
+  _renderLabel() {
+    if (this.label) {
+      return html`<label class="mdc-label" @click="${this._labelClick}"
+        >${this.label}</label
+      >`;
+    }
+
+    return html`<slot
+      name="label"
+      class="mdc-label"
+      @click="${this._labelClick}"
+    ></slot>`;
+  }
+
   set label(value) {
     const oldValue = this._label;
     this._label = value;
     this._hasLabel = !!value;
-    this.requestUpdate('label', oldValue);
+    this.requestUpdate("label", oldValue);
   }
 
   get label() {
     return this._label;
   }
-
 }
 
-window.customElements.define('dw-form-field', DwFormField);
+window.customElements.define("dw-form-field", DwFormField);
