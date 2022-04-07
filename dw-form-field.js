@@ -8,18 +8,17 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
 
-import { css } from "lit-element";
-import { Formfield } from "@material/mwc-formfield";
+import { LitElement, html, css } from "lit-element";
 import { classMap } from "lit-html/directives/class-map";
-import { html, property, query } from "lit-element";
 
-export class DwFormField extends Formfield {
+import * as TypographyLiterals from "@dreamworld/material-styles/typography-literals";
+
+export class DwFormField extends LitElement {
   static get styles() {
     return [
-      Formfield.styles,
       css`
         :host {
-          display: inline-block;
+          display: block;
           cursor: pointer;
           --mdc-theme-text-primary-on-background: var(--mdc-theme-text-primary);
         }
@@ -29,18 +28,23 @@ export class DwFormField extends Formfield {
           pointer-events: none;
         }
 
-        :host([disabled]) .mdc-form-field {
+        :host([disabled]) .dw-form-field {
           color: var(--mdc-theme-disabled-text-color, rgba(0, 0, 0, 0.38));
         }
 
-        .mdc-form-field {
+        :host([alignEnd]) .dw-form-field {
+          flex-direction: row-reverse;
+        }
+
+        .dw-form-field {
+          display: flex;
           font-size: inherit;
           line-height: inherit;
           font-family: inherit;
         }
 
         /* Removes label padding when label is not available */
-        :host(:not([_hasLabel])) .mdc-form-field > label {
+        :host(:not([_hasLabel])) .dw-form-field > label {
           padding-left: 0px;
           /* for alignEnd label */
           padding-right: 0px;
@@ -51,11 +55,16 @@ export class DwFormField extends Formfield {
         }
 
         label {
+          ${TypographyLiterals.body2};
           min-height: var(--dw-form-field-label-min-height, auto);
           cursor: pointer;
         }
 
-        :host([align-top]) .mdc-label {
+        .dw-label {
+          flex: 1;
+        }
+
+        ::slotted :host([align-top]) .dw-label {
           align-self: flex-start;
         }
       `,
@@ -65,6 +74,13 @@ export class DwFormField extends Formfield {
   static get properties() {
     return {
       /**
+       * Represents Element label in String
+       */
+      label: {
+        type: String,
+      },
+
+      /**
        * Set to true to disabled click
        */
       disabled: { type: Boolean },
@@ -73,6 +89,14 @@ export class DwFormField extends Formfield {
        * Aligns label at top.
        */
       alignTop: { type: Boolean, reflect: true, attribute: "align-top" },
+
+      /**
+       * Align the component at the end of the label.
+       */
+      alignEnd: {
+        type: Boolean,
+        reflect: true,
+      },
 
       /**
        *  True if label is available
@@ -91,11 +115,11 @@ export class DwFormField extends Formfield {
 
   render() {
     const classes = {
-      "mdc-form-field--align-end": this.alignEnd,
-      "mdc-form-field--space-between": this.spaceBetween,
-      "mdc-form-field--nowrap": this.nowrap,
+      "dw-form-field--align-end": this.alignEnd,
+      "dw-form-field--space-between": this.spaceBetween,
+      "dw-form-field--nowrap": this.nowrap,
     };
-    return html` <div class="mdc-form-field ${classMap(classes)}">
+    return html` <div class="dw-form-field ${classMap(classes)}">
       <slot></slot>
       ${this._renderLabel()}
     </div>`;
@@ -103,16 +127,14 @@ export class DwFormField extends Formfield {
 
   _renderLabel() {
     if (this.label) {
-      return html`<label class="mdc-label" @click="${this._labelClick}"
-        >${this.label}</label
-      >`;
+      return html`
+        <div class="dw-label" @click="${this._labelClick}">${this.label}</div>
+      `;
     }
 
-    return html`<slot
-      name="label"
-      class="mdc-label"
-      @click="${this._labelClick}"
-    ></slot>`;
+    return html`<div class="dw-label" @click="${this._labelClick}">
+      <slot name="label"></slot>
+    </div>`;
   }
 
   set label(value) {
