@@ -44,6 +44,12 @@ class DwFormFieldDemo extends LitElement {
       </dw-form-field>
 
       <h4>Custom theme</h4>
+      <dw-form-field >
+        <input type="checkbox">
+        <div slot="label">Hello Label, This is a slotted label</div>
+      </dw-form-field>
+
+      <h4>Custom theme</h4>
       <dw-form-field class="custom-theme" label="This is a custom label">
         <input type="checkbox">
       </dw-form-field>
