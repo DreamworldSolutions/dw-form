@@ -8,13 +8,14 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
 
-import { css } from 'lit-element';
-import { Formfield } from '@material/mwc-formfield';
+import { LitElement, html, css } from "lit-element";
+import { classMap } from "lit-html/directives/class-map";
 
-export class DwFormField extends Formfield {
+import * as TypographyLiterals from "@dreamworld/material-styles/typography-literals";
+
+export class DwFormField extends LitElement {
   static get styles() {
     return [
-      Formfield.styles,
       css`
         :host {
           display: block;
@@ -27,18 +28,23 @@ export class DwFormField extends Formfield {
           pointer-events: none;
         }
 
-        :host([disabled]) .mdc-form-field {
-          color: var(--mdc-theme-disabled-text-color, rgba(0,0,0,0.38));
+        :host([disabled]) .dw-form-field {
+          color: var(--mdc-theme-disabled-text-color, rgba(0, 0, 0, 0.38));
         }
 
-        .mdc-form-field {
+        :host([alignEnd]) .dw-form-field {
+          flex-direction: row-reverse;
+        }
+
+        .dw-form-field {
+          display: flex;
           font-size: inherit;
           line-height: inherit;
           font-family: inherit;
         }
-        
+
         /* Removes label padding when label is not available */
-        :host(:not([_hasLabel])) .mdc-form-field > label{
+        :host(:not([_hasLabel])) .dw-form-field > label {
           padding-left: 0px;
           /* for alignEnd label */
           padding-right: 0px;
@@ -48,7 +54,8 @@ export class DwFormField extends Formfield {
           cursor: default;
         }
 
-        label{
+        label {
+          ${TypographyLiterals.body2};
           min-height: var(--dw-form-field-label-min-height, auto);
           cursor: pointer;
           display: flex;
@@ -57,16 +64,27 @@ export class DwFormField extends Formfield {
           width: 100%;
         }
 
-        :host([align-top]) .mdc-label{
+        .dw-label {
+          flex: 1;
+        }
+
+        ::slotted :host([align-top]) .dw-label {
           align-self: flex-start;
           align-items: flex-start;
         }
-      `
+      `,
     ];
   }
 
   static get properties() {
     return {
+      /**
+       * Represents Element label in String
+       */
+      label: {
+        type: String,
+      },
+
       /**
        * Set to true to disabled click
        */
@@ -75,16 +93,24 @@ export class DwFormField extends Formfield {
       /**
        * Aligns label at top.
        */
-       alignTop: { type: Boolean, reflect: true, attribute: 'align-top' },
-      
+      alignTop: { type: Boolean, reflect: true, attribute: "align-top" },
+
+      /**
+       * Align the component at the end of the label.
+       */
+      alignEnd: {
+        type: Boolean,
+        reflect: true,
+      },
+
       /**
        *  True if label is available
        */
       _hasLabel: {
         type: Boolean,
-        reflect: true
-      }
-    }
+        reflect: true,
+      },
+    };
   }
 
   constructor() {
@@ -92,17 +118,40 @@ export class DwFormField extends Formfield {
     this.disabled = false;
   }
 
+  render() {
+    const classes = {
+      "dw-form-field--align-end": this.alignEnd,
+      "dw-form-field--space-between": this.spaceBetween,
+      "dw-form-field--nowrap": this.nowrap,
+    };
+    return html` <div class="dw-form-field ${classMap(classes)}">
+      <slot></slot>
+      ${this._renderLabel()}
+    </div>`;
+  }
+
+  _renderLabel() {
+    if (this.label) {
+      return html`
+        <div class="dw-label" @click="${this._labelClick}">${this.label}</div>
+      `;
+    }
+
+    return html`<div class="dw-label" @click="${this._labelClick}">
+      <slot name="label"></slot>
+    </div>`;
+  }
+
   set label(value) {
     const oldValue = this._label;
     this._label = value;
     this._hasLabel = !!value;
-    this.requestUpdate('label', oldValue);
+    this.requestUpdate("label", oldValue);
   }
 
   get label() {
     return this._label;
   }
-
 }
 
-window.customElements.define('dw-form-field', DwFormField);
+window.customElements.define("dw-form-field", DwFormField);

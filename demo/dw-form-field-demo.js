@@ -10,8 +10,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 import { html, css } from 'lit-element';
 import { LitElement } from '@dreamworld/pwa-helpers/lit-element.js';
-import '@dreamworld/dw-form/dw-form-field';
-import '@material/mwc-checkbox';
+import '../dw-form-field';
 
 
 class DwFormFieldDemo extends LitElement {
@@ -36,22 +35,34 @@ class DwFormFieldDemo extends LitElement {
     return html`
       <h4>Basic</h4>
       <dw-form-field label="This is checkbox">
-        <mwc-checkbox></mwc-checkbox>
+        <input type="checkbox">
       </dw-form-field>
 
       <h4>Disabled</h4>
       <dw-form-field label="This is disabled label" disabled>
-        <mwc-checkbox></mwc-checkbox>
+        <input type="checkbox">
+      </dw-form-field>
+
+      <h4>Custom theme</h4>
+      <dw-form-field >
+        <input type="checkbox">
+        <div slot="label">Hello Label, This is a slotted label</div>
       </dw-form-field>
 
       <h4>Custom theme</h4>
       <dw-form-field class="custom-theme" label="This is a custom label">
-        <mwc-checkbox checked></mwc-checkbox>
+        <input type="checkbox">
       </dw-form-field>
 
       <h4>End aligned label</h4>
       <dw-form-field alignEnd  label="This is a end aligned label">
-        <mwc-checkbox></mwc-checkbox>
+        <input type="checkbox">
+      </dw-form-field>
+
+      <h4>Custom Label label</h4>
+      <dw-form-field alignEnd>
+        <input type="checkbox">
+        <div style="background-color:powderblue; color: red; font-size: 24px;" slot="label">Hello Label</div>
       </dw-form-field>
     `;
   }
