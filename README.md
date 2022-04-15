@@ -70,11 +70,11 @@ create composite form elements. Only most souter form element is registered with
 
 # dw-form-field
 
-It's a wrapper of `mwc-formfield` which aligns form-field with it's label. 
+It's used to show label for checkbox & radio buttons. Used by `dw-checkbox` and `dw-radio-button`.
+And allows user to select by clicking on the label too.
 It also activates a ripple effect upon interacting with the label. For more detail visit
  https://github.com/material-components/material-web/tree/master/packages/formfield.
 
-It's used to show label for checkbox & radio buttons. Used by `dw-checkbox` and `dw-radio-button`.
 
 ## Installation
 ```html
@@ -98,12 +98,16 @@ It's used to show label for checkbox & radio buttons. Used by `dw-checkbox` and 
 
 ## Enhancements in addition to `mwc-formfield`
 
+> Earlier (in 1.x version) this element was an extension of `mwc-formfield` but it's no longer uses it.
+> But, it implements all the behaviours of it with additional behaviours as described below.
+
 - Adds `disabled` property
   - When set to `true`, text will be rendered in `--disabled-text-color`
   - Deactivates ripple on click
 - Removes left padding from label When label is not available
 - Adds a way to change font style. By default it inherits font style from parent element
 - Provides a way to align label to top through `alignTop` property.
+- From version 2.x it allows you to render label through slotted element.
 
 ## Properties
 

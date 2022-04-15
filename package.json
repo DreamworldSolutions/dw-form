@@ -21,14 +21,12 @@
   },
   "homepage": "https://github.com/DreamworldSolutions/dw-form#README",
   "dependencies": {
+    "@dreamworld/material-styles": "^2.0.0",
     "@dreamworld/pwa-helpers": "^1.7.1",
-    "@material/mwc-formfield": "^0.20.0",
     "lit-element": "^2.0.1",
     "lodash-es": "^4.17.15"
   },
   "devDependencies": {
-    "@dreamworld/dw-checkbox": "^1.0.3",
-    "@dreamworld/dw-input": "^1.5.0",
     "@dreamworld/flex-layout": "^1.1.0",
     "semantic-release": "17.0.8"
   },
