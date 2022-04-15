@@ -66,6 +66,8 @@ export class DwFormField extends LitElement {
 
         .dw-label {
           flex: 1;
+          align-self: center;
+          padding: var(--dw-form-field-label-padding);
         }
 
         ::slotted :host([align-top]) .dw-label {
