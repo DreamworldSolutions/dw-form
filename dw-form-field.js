@@ -118,6 +118,16 @@ export class DwFormField extends LitElement {
   constructor() {
     super();
     this.disabled = false;
+
+    this.addEventListener("click", () => {
+      let el = this.renderRoot.querySelector("slot").assignedElements({ flatten: true })[0];
+
+      if (el) {
+        el.focus();
+        el.click();
+        el.blur();
+      }
+    });
   }
 
   render() {
@@ -134,12 +144,10 @@ export class DwFormField extends LitElement {
 
   _renderLabel() {
     if (this.label) {
-      return html`
-        <div class="dw-label" @click="${this._labelClick}">${this.label}</div>
-      `;
+      return html` <div class="dw-label">${this.label}</div> `;
     }
 
-    return html`<div class="dw-label" @click="${this._labelClick}">
+    return html`<div class="dw-label">
       <slot name="label"></slot>
     </div>`;
   }
