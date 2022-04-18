@@ -20,8 +20,6 @@ export class DwFormField extends LitElement {
         :host {
           display: block;
           cursor: pointer;
-          --dw-theme-text-primary-on-background: var(--mdc-theme-text-primary-on-background, rgba(0, 0, 0, 0.87));
-          --dw-theme-disabled-text-color: var(--mdc-theme-text-disabled-on-background, rgba(0, 0, 0, 0.38));
         }
 
         :host([disabled]) {
@@ -30,7 +28,7 @@ export class DwFormField extends LitElement {
         }
 
         :host([disabled]) .dw-label {
-          color: var(--dw-theme-disabled-text-color);
+          color: var(--mdc-theme-text-disabled-on-background, rgba(0, 0, 0, 0.38));
         }
 
         :host([alignEnd]) .dw-form-field {
@@ -53,7 +51,7 @@ export class DwFormField extends LitElement {
           flex: 1;
           align-self: center;
           padding: var(--dw-form-field-label-padding);
-          color: var(--dw-theme-text-primary-on-background);
+          color: var(--mdc-theme-text-primary-on-background, rgba(0, 0, 0, 0.87));
 
           ${TypographyLiterals.body2};
           min-height: var(--dw-form-field-label-min-height, auto);
