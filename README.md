@@ -128,8 +128,8 @@ It also activates a ripple effect upon interacting with the label. For more deta
 
 | Name | Default | Description |
 | ---- | ------ | --------- |
-| `--dw-theme-text-primary-on-background` | `rgba(0, 0, 0, 0.87)` | Color of the label text. |
-| `--dw-theme-disabled-text-color` | `rgba(0, 0, 0, 0.38)` | Text color of a disabled form-field |
+| `--mdc-theme-text-primary-on-background` | `rgba(0, 0, 0, 0.87)` | Color of the label text. |
+| `--mdc-theme-text-disabled-on-background` | `rgba(0, 0, 0, 0.38)` | Text color of a disabled form-field |
 | `--dw-form-field-label-min-height` | auto | Minimum height to label |
 | `--dw-form-field-label-padding` | 0 | Padding of the label (Note: won't work if label is not available) |
 
@@ -137,7 +137,7 @@ It also activates a ripple effect upon interacting with the label. For more deta
 
 ```
 dw-form-field {
-  --dw-theme-text-primary-on-background: blue;
+  --mdc-theme-text-primary-on-background: blue;
   --dw-form-field-label-min-height: 40px;
   font-size: 18px;
 }
