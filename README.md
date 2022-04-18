@@ -94,6 +94,14 @@ It also activates a ripple effect upon interacting with the label. For more deta
 </dw-form-field>
 ```
 
+```html
+// Slotted Label
+<dw-form-field>
+  <my-form-element></my-form-element>
+  <div slot="label" style="background-color:powderblue; color: red; font-size: 24px;">Hello Slotted Label</div>
+</dw-form-field>
+```
+
 ## [Demo](https://dreamworldsolutions.github.io/dw-form-field/demo/index.html)
 
 ## Enhancements in addition to `mwc-formfield`
@@ -102,12 +110,12 @@ It also activates a ripple effect upon interacting with the label. For more deta
 > But, it implements all the behaviours of it with additional behaviours as described below.
 
 - Adds `disabled` property
-  - When set to `true`, text will be rendered in `--disabled-text-color`
+  - When set to `true`, text will be rendered in `--dw-theme-disabled-text-color`
   - Deactivates ripple on click
 - Removes left padding from label When label is not available
 - Adds a way to change font style. By default it inherits font style from parent element
 - Provides a way to align label to top through `alignTop` property.
-- From version 2.x it allows you to render label through slotted element.
+- From version 3.x it allows you to render label through slotted element.
 
 ## Properties
 
@@ -116,19 +124,20 @@ It also activates a ripple effect upon interacting with the label. For more deta
 - alignTop
 - disabled
 
-## Theme
+## Custom CSS Properties
 
-- `--primary-text-color` - use this to customize label color
-
-- `--disabled-text-color` - use this to customize disabled label color
-
-- `--dw-form-field-label-min-height` - use this to set minimum height to label.
+| Name | Default | Description |
+| ---- | ------ | --------- |
+| `--dw-theme-text-primary-on-background` | `rgba(0, 0, 0, 0.87)` | Color of the label text. |
+| `--dw-theme-disabled-text-color` | `rgba(0, 0, 0, 0.38)` | Text color of a disabled form-field |
+| `--dw-form-field-label-min-height` | auto | Minimum height to label |
+| `--dw-form-field-label-padding` | 0 | Padding of the label (Note: won't work if label is not available) |
 
 #### Example css to change label style
 
 ```
 dw-form-field {
-  --primary-text-color: blue;
+  --dw-theme-text-primary-on-background: blue;
   --dw-form-field-label-min-height: 40px;
   font-size: 18px;
 }
