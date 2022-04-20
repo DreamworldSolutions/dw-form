@@ -20,7 +20,6 @@ export class DwFormField extends LitElement {
         :host {
           display: block;
           cursor: pointer;
-          --mdc-theme-text-primary-on-background: var(--mdc-theme-text-primary);
         }
 
         :host([disabled]) {
@@ -28,8 +27,8 @@ export class DwFormField extends LitElement {
           pointer-events: none;
         }
 
-        :host([disabled]) .dw-form-field {
-          color: var(--mdc-theme-disabled-text-color, rgba(0, 0, 0, 0.38));
+        :host([disabled]) .dw-label {
+          color: var(--mdc-theme-text-disabled-on-background, rgba(0, 0, 0, 0.38));
         }
 
         :host([alignEnd]) .dw-form-field {
@@ -44,26 +43,19 @@ export class DwFormField extends LitElement {
         }
 
         /* Removes label padding when label is not available */
-        :host(:not([_hasLabel])) .dw-form-field > label {
-          padding-left: 0px;
-          /* for alignEnd label */
-          padding-right: 0px;
-        }
-
-        :host([disabled]) label {
-          cursor: default;
-        }
-
-        label {
-          ${TypographyLiterals.body2};
-          min-height: var(--dw-form-field-label-min-height, auto);
-          cursor: pointer;
+        :host(:not([_hasLabel])) .dw-form-field > .dw-label {
+          padding: 0;
         }
 
         .dw-label {
           flex: 1;
           align-self: center;
           padding: var(--dw-form-field-label-padding);
+          color: var(--mdc-theme-text-primary-on-background, rgba(0, 0, 0, 0.87));
+
+          ${TypographyLiterals.body2};
+          min-height: var(--dw-form-field-label-min-height, auto);
+          cursor: pointer;
         }
 
         ::slotted :host([align-top]) .dw-label {
@@ -113,16 +105,6 @@ export class DwFormField extends LitElement {
   constructor() {
     super();
     this.disabled = false;
-
-    this.addEventListener("click", () => {
-      let el = this.renderRoot.querySelector("slot").assignedElements({ flatten: true })[0];
-
-      if (el) {
-        el.focus();
-        el.click();
-        el.blur();
-      }
-    });
   }
 
   render() {
@@ -139,18 +121,29 @@ export class DwFormField extends LitElement {
 
   _renderLabel() {
     if (this.label) {
-      return html` <div class="dw-label">${this.label}</div> `;
+      return html` <div class="dw-label" @click="${this._labelClick}">${this.label}</div> `;
     }
 
-    return html`<div class="dw-label">
+    return html`<div class="dw-label" @click="${this._labelClick}">
       <slot name="label"></slot>
     </div>`;
   }
 
+  _labelClick() {
+    let el = this.renderRoot.querySelector("slot").assignedElements({ flatten: true })[0];
+
+    if (el) {
+      el.focus();
+      el.click();
+      el.blur();
+    }
+  }
+
   set label(value) {
     const oldValue = this._label;
+    let labelEl = this.renderRoot.querySelector(".dw-label");
     this._label = value;
-    this._hasLabel = !!value;
+    this._hasLabel = !!(value || labelEl);
     this.requestUpdate("label", oldValue);
   }
 
