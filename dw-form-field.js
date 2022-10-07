@@ -1,4 +1,4 @@
-import { LitElement, html, css } from "@dreamworld/pwa-helpers/lit.js";
+import { LitElement, html, css, unsafeCSS } from "@dreamworld/pwa-helpers/lit.js";
 import { classMap } from 'lit/directives/class-map.js';
 
 import * as TypographyLiterals from "@dreamworld/material-styles/typography-literals";
@@ -43,7 +43,7 @@ export class DwFormField extends LitElement {
           padding: var(--dw-form-field-label-padding);
           color: var(--mdc-theme-text-primary-on-background, rgba(0, 0, 0, 0.87));
 
-          ${TypographyLiterals.body2};
+          ${unsafeCSS(TypographyLiterals.body2)};
           min-height: var(--dw-form-field-label-min-height, auto);
           cursor: pointer;
         }

@@ -1,7 +1,6 @@
 import { css, html, LitElement } from '@dreamworld/pwa-helpers/lit.js';
 import '../dw-composite-form-element'; 
 import '@dreamworld/dw-input';
-import { flexLayout } from '@dreamworld/flex-layout/flex-layout';
 
 export class DwCompositeFormElementDemo extends LitElement {
   static get styles() {
@@ -16,6 +15,9 @@ export class DwCompositeFormElementDemo extends LitElement {
         }
         dw-input {
           width: 300px;
+        }
+        .horizontal{
+          flex-direction: row;
         }
       `
     ];
