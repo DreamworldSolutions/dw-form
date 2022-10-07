@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/DreamworldSolutions/dw-form#README",
   "dependencies": {
-    "@dreamworld/material-styles": "^2.0.0",
+    "@dreamworld/material-styles": "https://github.com/DreamworldSolutions/material-styles.git#feature/upgrade-to-lit",
     "@dreamworld/pwa-helpers": "^1.13.1",
     "lodash-es": "^4.17.15"
   },
