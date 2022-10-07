@@ -19,6 +19,9 @@ export class DwCompositeFormElementDemo extends LitElement {
         .horizontal{
           flex-direction: row;
         }
+        .layout {
+          display: flex;
+        }
       `
     ];
   }

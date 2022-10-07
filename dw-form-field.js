@@ -131,7 +131,8 @@ export class DwFormField extends LitElement {
 
   set label(value) {
     const oldValue = this._label;
-    let labelEl = this.renderRoot.querySelector(".dw-label");
+    let labelEl = this.renderRoot?.querySelector('.dw-label') ?? null
+    // let labelEl = this.renderRoot.querySelector(".dw-label");
     this._label = value;
     this._hasLabel = !!(value || labelEl);
     this.requestUpdate("label", oldValue);
