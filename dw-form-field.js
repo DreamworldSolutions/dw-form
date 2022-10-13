@@ -1,15 +1,5 @@
-/**
-@license
-Copyright (c) 2018 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
-*/
-
-import { LitElement, html, css } from "lit-element";
-import { classMap } from "lit-html/directives/class-map";
+import { LitElement, html, css, unsafeCSS } from "@dreamworld/pwa-helpers/lit.js";
+import { classMap } from 'lit/directives/class-map.js';
 
 import * as TypographyLiterals from "@dreamworld/material-styles/typography-literals";
 
@@ -53,7 +43,7 @@ export class DwFormField extends LitElement {
           padding: var(--dw-form-field-label-padding);
           color: var(--mdc-theme-text-primary-on-background, rgba(0, 0, 0, 0.87));
 
-          ${TypographyLiterals.body2};
+          ${unsafeCSS(TypographyLiterals.body2)};
           min-height: var(--dw-form-field-label-min-height, auto);
           cursor: pointer;
         }
@@ -141,7 +131,8 @@ export class DwFormField extends LitElement {
 
   set label(value) {
     const oldValue = this._label;
-    let labelEl = this.renderRoot.querySelector(".dw-label");
+    let labelEl = this.renderRoot?.querySelector('.dw-label') ?? null
+    // let labelEl = this.renderRoot.querySelector(".dw-label");
     this._label = value;
     this._hasLabel = !!(value || labelEl);
     this.requestUpdate("label", oldValue);
