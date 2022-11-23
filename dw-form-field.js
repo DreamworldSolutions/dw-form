@@ -1,5 +1,5 @@
 import { LitElement, html, css, unsafeCSS } from "@dreamworld/pwa-helpers/lit.js";
-import { classMap } from 'lit/directives/class-map.js';
+import { classMap } from "lit/directives/class-map.js";
 
 import * as TypographyLiterals from "@dreamworld/material-styles/typography-literals";
 
@@ -97,6 +97,13 @@ export class DwFormField extends LitElement {
     this.disabled = false;
   }
 
+  updated(_changeProperties) {
+    if (_changeProperties.has("label")) {
+      const labelEl = this.renderRoot.querySelector(".dw-label");
+      this._hasLabel = !!(this.label || labelEl);
+    }
+  }
+
   render() {
     const classes = {
       "dw-form-field--align-end": this.alignEnd,
@@ -127,19 +134,6 @@ export class DwFormField extends LitElement {
       el.click();
       el.blur();
     }
-  }
-
-  set label(value) {
-    const oldValue = this._label;
-    let labelEl = this.renderRoot?.querySelector('.dw-label') ?? null
-    // let labelEl = this.renderRoot.querySelector(".dw-label");
-    this._label = value;
-    this._hasLabel = !!(value || labelEl);
-    this.requestUpdate("label", oldValue);
-  }
-
-  get label() {
-    return this._label;
   }
 }
 
