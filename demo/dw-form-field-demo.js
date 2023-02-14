@@ -58,4 +58,4 @@ class DwFormFieldDemo extends LitElement {
 
 }
 
-window.customElements.define('dw-form-field-demo', DwFormFieldDemo);
+customElements.define('dw-form-field-demo', DwFormFieldDemo);

@@ -196,4 +196,4 @@ export class DwCompositeFormElement extends DwFormElement(LitElement) {
   }
 }
 
-window.customElements.define('dw-composite-form-element', DwCompositeFormElement);
+customElements.define('dw-composite-form-element', DwCompositeFormElement);

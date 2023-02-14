@@ -89,4 +89,4 @@ class DwFormDemo extends DwFormElement(LitElement) {
 
 }
 
-window.customElements.define('dw-form-demo', DwFormDemo);
+customElements.define('dw-form-demo', DwFormDemo);
