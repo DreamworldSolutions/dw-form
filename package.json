@@ -3,6 +3,7 @@
   "version": "0.0.0-development",
   "description": "",
   "main": "dw-form.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "wds --node-resolve --open --watch"

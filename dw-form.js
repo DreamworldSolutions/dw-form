@@ -136,4 +136,4 @@ export class DwForm extends LitElement {
   
 }
 
-window.customElements.define('dw-form', DwForm);
+customElements.define('dw-form', DwForm);
