@@ -10,6 +10,7 @@ export class DwFormField extends LitElement {
         :host {
           display: block;
           cursor: pointer;
+          ${unsafeCSS(TypographyLiterals.body2)};
         }
 
         :host([disabled]) {
@@ -43,7 +44,6 @@ export class DwFormField extends LitElement {
           padding: var(--dw-form-field-label-padding);
           color: var(--mdc-theme-text-primary-on-background, rgba(0, 0, 0, 0.87));
 
-          ${unsafeCSS(TypographyLiterals.body2)};
           min-height: var(--dw-form-field-label-min-height, auto);
           cursor: pointer;
         }
