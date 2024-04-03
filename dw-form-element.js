@@ -16,11 +16,8 @@ export const DwFormElement = (baseElement) => class extends baseElement {
   connectedCallback() {
     super.connectedCallback && super.connectedCallback();
     
-    //Setting timeout because it's called before parent's `connectedCallback`.
-    setTimeout(() => {
-      this._triggerFormElementRegisterEvent();
-      this._stopInnerElementRegisterEvent();
-    }, 1);
+    this._triggerFormElementRegisterEvent();
+    this._stopInnerElementRegisterEvent();
   }
     
   /**
