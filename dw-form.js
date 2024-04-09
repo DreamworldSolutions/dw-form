@@ -105,6 +105,24 @@ export class DwForm extends LitElement {
   }
 
   /**
+   * Validates all the registred elements in the form.
+   * @return {Array} of invalid elements.
+   */
+  getInvalidElements() {
+    let invalidEements = [];
+
+    this._customElements.forEach(el => {
+      if (el && el.checkValidity) {
+        if(el.checkValidity() === false) {
+          invalidEements.push(el);
+        }
+      }
+    });
+
+    return invalidEements;
+  }
+
+  /**
    * @param {HTMLElement} - registered element
    * Binds `unregister-dw-form-element` event listeners
    */
