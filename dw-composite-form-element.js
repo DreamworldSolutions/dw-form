@@ -100,6 +100,7 @@ export class DwCompositeFormElement extends DwFormElement(LitElement) {
     }
 
     element.addEventListener('value-changed', this._onElementValueChange);
+    element.addEventListener('selected', this._onElementValueChange);
     element.addEventListener('checked-changed', this._onElementCheckedChange);
     element.addEventListener('unregister-dw-form-element', this._onUnregisterDwFormElement);
     this._elements.push(element);
@@ -126,6 +127,7 @@ export class DwCompositeFormElement extends DwFormElement(LitElement) {
 
   _unbindValueChangedEvents(element) {
     element.removeEventListener('value-changed', this._onElementValueChange);
+    element.removeEventListener('selected', this._onElementValueChange);
     element.removeEventListener('checked-changed', this._onElementCheckedChange);
   }
 
