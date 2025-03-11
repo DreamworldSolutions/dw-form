@@ -1,7 +1,7 @@
 import { LitElement, html, css, unsafeCSS } from "@dreamworld/pwa-helpers/lit.js";
 import { classMap } from "lit/directives/class-map.js";
 
-import * as TypographyLiterals from "@dreamworld/material-styles/typography-literals";
+import * as TypographyLiterals from "@dreamworld/material-styles/typography-literals.js";
 
 export class DwFormField extends LitElement {
   static get styles() {
