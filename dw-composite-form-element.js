@@ -4,7 +4,7 @@ import { css, html, LitElement } from '@dreamworld/pwa-helpers/lit.js';
 import debounce from 'lodash-es/debounce';
 
 // These are dw element needed by this element.
-import { DwFormElement } from './dw-form-element';
+import { DwFormElement } from './dw-form-element.js';
 
 export class DwCompositeFormElement extends DwFormElement(LitElement) {
   static get styles() {
