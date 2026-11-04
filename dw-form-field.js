@@ -8,7 +8,7 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
 
-import { css } from 'lit-element';
+import { css } from 'lit';
 import { Formfield } from '@material/mwc-formfield';
 
 export class DwFormField extends Formfield {
@@ -60,6 +60,11 @@ export class DwFormField extends Formfield {
         :host([align-top]) .mdc-label{
           align-self: flex-start;
           align-items: flex-start;
+          text-transform: var(--dw-form-field-label-text-transform, none);
+        }
+
+        .mdc-form-field>label {
+          padding-left: var(--dw-form-field-label-text-transform, 4px);
         }
       `
     ];
@@ -101,6 +106,14 @@ export class DwFormField extends Formfield {
 
   get label() {
     return this._label;
+  }
+
+  /**
+   * mwc-formfield 0.27 declares it with `@queryAssignedNodes('', true, '*')`, a signature Lit 3 removed, so its
+   * `input` (the slotted control a label click toggles) stops resolving. Same result, without the decorator.
+   */
+  get slottedInputs() {
+    return this.shadowRoot?.querySelector('slot')?.assignedElements({ flatten: true }) ?? [];
   }
 
 }
